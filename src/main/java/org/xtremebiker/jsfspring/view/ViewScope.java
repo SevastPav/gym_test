@@ -1,11 +1,10 @@
 package org.xtremebiker.jsfspring.view;
 
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
+
+import javax.faces.context.FacesContext;
+import java.util.Map;
 
 /**
  * The JSF view scope ported to spring *
