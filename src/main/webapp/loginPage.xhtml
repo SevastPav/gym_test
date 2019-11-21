@@ -11,13 +11,21 @@
 <h:body>
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="content">
-            <div>
+            <div style="margin: 40px auto; text-align: -webkit-center;">
                 <h:form>
-                    <h3>Login</h3>
-                    <p:inputText/>
-                    <h3>Password</h3>
-                    <p:inputText/>
-                    <p:commandButton value="Enter" id="nonAjax" style="margin-right:20px;" ajax="false"/>
+                    <div class="ui-g" style="margin-top: 15px;">
+                        <div class="ui-g-3"></div>
+                        <div class="ui-g-2" style="text-align: right;"><p:outputLabel for="login" value="Login"/></div>
+                        <div class="ui-g-4" style="text-align: left;"><p:inputText id="login"/></div>
+                        <div class="ui-g-3"></div>
+                    </div>
+                    <div class="ui-g" style="margin-top: 15px;">
+                        <div class="ui-g-3"></div>
+                        <div class="ui-g-2" style="text-align: right;"><p:outputLabel for="password" value="Password"/></div>
+                        <div class="ui-g-4" style="text-align: left;"><p:inputText id="password"/></div>
+                        <div class="ui-g-3"></div>
+                    </div>
+                    <p:commandButton value="Log in" id="button" style="display: block; margin-top: 7px;"/>
                 </h:form>
             </div>
         </ui:define>
