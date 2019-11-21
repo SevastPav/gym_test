@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<head>
+    <title>Insert title here</title>
+</head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <div>
+                <h:form>
+                    <h3>Login</h3>
+                    <p:inputText/>
+                    <h3>Password</h3>
+                    <p:inputText/>
+                    <p:commandButton value="Enter" id="nonAjax" style="margin-right:20px;" ajax="false"/>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

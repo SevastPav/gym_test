@@ -13,16 +13,10 @@
 <ui:composition>
     <h1>Header</h1>
     <div style="display: inline-block; position: relative; float: right;">
-        <p:linkButton value="Facebook" href="https://www.facebook.com/" style="margin-right:20px;">
-            <f:param name="productId" value="10"/>
-        </p:linkButton>
-        <p:linkButton value="Instagram" style="margin-right:20px;">
-            <f:param name="productId" value="10"/>
-        </p:linkButton>
-        <p:linkButton value="Log in" style="margin-right:20px;">
-            <f:param name="productId" value="10"/>
-        </p:linkButton>
-
+        <p:linkButton value="Facebook" href="https://www.facebook.com/" style="margin-right:20px;"/>
+        <p:linkButton value="Instagram" href="https://www.instagram.com/" style="margin-right:20px;"/>
+        <p:linkButton outcome="/loginPage.xhtml" value="Log in" style="margin-right:20px;"/>
+        <p:linkButton outcome="/welcomePage.xhtml" value="Home" style="margin-right:20px;"/>
     </div>
 </ui:composition>
 </body>
