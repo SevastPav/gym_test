@@ -1,34 +1,27 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<head>
-    <title>Insert title here</title>
-</head>
-<h:body>
-    <ui:composition template="/templates/template.xhtml">
-        <ui:define name="content">
-            <div style="margin: 40px auto; text-align: -webkit-center;">
-                <h:form>
-                    <div class="ui-g" style="margin-top: 15px;">
-                        <div class="ui-g-3"></div>
-                        <div class="ui-g-2" style="text-align: right;"><p:outputLabel for="login" value="Login"/></div>
-                        <div class="ui-g-4" style="text-align: left;"><p:inputText id="login"/></div>
-                        <div class="ui-g-3"></div>
+<ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
+        <div style="margin: 40px auto; text-align: -webkit-center;">
+            <h:form>
+                <div class="ui-g" style="margin-top: 15px;">
+                    <div class="ui-g-3"></div>
+                    <div class="ui-g-2" style="text-align: right;"><p:outputLabel for="login" value="Login"/></div>
+                    <div class="ui-g-4" style="text-align: left;"><p:inputText id="login"/></div>
+                    <div class="ui-g-3"></div>
+                </div>
+                <div class="ui-g" style="margin-top: 15px;">
+                    <div class="ui-g-3"></div>
+                    <div class="ui-g-2" style="text-align: right;"><p:outputLabel for="password" value="Password"/>
                     </div>
-                    <div class="ui-g" style="margin-top: 15px;">
-                        <div class="ui-g-3"></div>
-                        <div class="ui-g-2" style="text-align: right;"><p:outputLabel for="password" value="Password"/></div>
-                        <div class="ui-g-4" style="text-align: left;"><p:inputText id="password"/></div>
-                        <div class="ui-g-3"></div>
-                    </div>
-                    <p:commandButton value="Log in" id="button" style="display: block; margin-top: 7px;"/>
-                </h:form>
-            </div>
-        </ui:define>
-    </ui:composition>
-</h:body>
+                    <div class="ui-g-4" style="text-align: left;"><p:inputText id="password"/></div>
+                    <div class="ui-g-3"></div>
+                </div>
+                <p:commandButton value="Log in" id="button" style="display: block; margin-top: 7px;"/>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>

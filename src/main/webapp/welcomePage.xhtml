@@ -1,40 +1,47 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-<head>
-    <title>Insert title here</title>
-</head>
-<h:body>
-    <ui:composition template="/templates/template.xhtml">
-        <ui:define name="content">
-            <h:form id="form">
+<ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
+        <h:form id="form">
 
-                <p:growl id="msgs" showDetail="true"/>
+            <p:growl id="msgs" showDetail="true"/>
 
-                <h3 style="margin-top:0">Fitness24</h3>
-                <p:tabView>
-                    <p:tab title="About">
-                        <ui:insert name="about">
-                            <ui:include src="/components/about.xhtml"></ui:include>
-                        </ui:insert>
-                    </p:tab>
-                    <p:tab title="Services">
-                        <ui:insert name="services">
-                            <ui:include src="/components/services.xhtml"></ui:include>
-                        </ui:insert>
-                    </p:tab>
-                    <p:tab title="Timetable">
-                        <ui:insert name="timetable">
-                            <ui:include src="/components/timetable.xhtml"></ui:include>
-                        </ui:insert>
-                    </p:tab>
-                </p:tabView>
-            </h:form>
-        </ui:define>
-    </ui:composition>
-</h:body>
+            <h3 style="margin-top:0"></h3>
+            <p:tabView>
+                <p:tab title="О нас">
+                    <ui:insert name="about">
+                        <ui:include src="/components/about.xhtml"></ui:include>
+                    </ui:insert>
+                </p:tab>
+                <p:tab title="Услуги">
+                    <ui:insert name="services">
+                        <ui:include src="/components/services.xhtml"></ui:include>
+                    </ui:insert>
+                </p:tab>
+                <p:tab title="Расписание">
+                    <ui:insert name="timetable">
+                        <ui:include src="/components/timetable.xhtml"></ui:include>
+                    </ui:insert>
+                </p:tab>
+                <p:tab title="Абонементы">
+                    <ui:insert name="abonements">
+                        <ui:include src="/components/abonements.xhtml"></ui:include>
+                    </ui:insert>
+                </p:tab>
+                <p:tab title="Акции">
+                    <ui:insert name="promotions">
+                        <ui:include src="/components/promotions.xhtml"></ui:include>
+                    </ui:insert>
+                </p:tab>
+                <p:tab title="Контакты">
+                    <ui:insert name="contacts">
+                        <ui:include src="/components/contacts.xhtml"></ui:include>
+                    </ui:insert>
+                </p:tab>
+            </p:tabView>
+        </h:form>
+    </ui:define>
+</ui:composition>
 </html>

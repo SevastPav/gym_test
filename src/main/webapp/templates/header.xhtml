@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-<head>
-    <title>Insert title here</title>
-</head>
-<body>
 <ui:composition>
-    <h1>Header</h1>
-    <div style="display: inline-block; position: relative; float: right;">
-        <p:linkButton value="Facebook" href="https://www.facebook.com/" style="margin-right:20px;"/>
-        <p:linkButton value="Instagram" href="https://www.instagram.com/" style="margin-right:20px;"/>
-        <p:linkButton outcome="/loginPage.xhtml" value="Log in" style="margin-right:20px;"/>
-        <p:linkButton outcome="/welcomePage.xhtml" value="Home" style="margin-right:20px;"/>
-    </div>
+
+        <div class="ui-g">
+            <div class="ui-g-4">
+                <h:outputText value="Фитнес24" />
+            </div>
+            <div class="ui-g-8" style="text-align: right;">
+                <p:linkButton value="Facebook" href="https://www.facebook.com/" style="margin-right:20px;"/>
+                <p:linkButton value="Instagram" href="https://www.instagram.com/" style="margin-right:20px;"/>
+                <p:linkButton outcome="/loginPage.xhtml" value="Log in" style="margin-right:20px;"/>
+                <p:linkButton outcome="/welcomePage.xhtml" value="Home" style="margin-right:20px;"/></div>
+        </div>
+
+
 </ui:composition>
-</body>
 </html>
+
