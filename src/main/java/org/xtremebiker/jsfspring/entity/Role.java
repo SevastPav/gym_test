@@ -1,18 +1,22 @@
+/*
 package org.xtremebiker.jsfspring.entity;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+*/
 /**
  * A ClientSystem.
- */
+ *//*
+
 @Data
 @Entity
 @Table(name = "role")
-public class Role implements Serializable {
+public class Role implements Serializable, GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,4 +34,10 @@ public class Role implements Serializable {
 
     @OneToMany(mappedBy="roleId", cascade = CascadeType.ALL)
     public List<UserProfile> userProfiles;
+
+    @Override
+    public String getAuthority() {
+        return title;
+    }
 }
+*/

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.xtremebiker.jsfspring.entity.Role;
+//import org.xtremebiker.jsfspring.entity.Role;
 
 import java.util.Optional;
 
@@ -13,6 +13,7 @@ import java.util.Optional;
  * Spring Data  repository for the ClientSystem entity.
  */
 //@SuppressWarnings("unused")
+/*
 @Repository
 @Transactional
 public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
@@ -22,3 +23,4 @@ public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificat
     Optional<Role> findByTitle(String title);
 
 }
+*/

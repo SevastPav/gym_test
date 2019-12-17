@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.xtremebiker.jsfspring.entity.Role;
 import org.xtremebiker.jsfspring.entity.UserProfile;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long>,
 
     List<UserProfile> findAll();
 
-    List<UserProfile> findByRoleId(Role role);
+    //List<UserProfile> findByRoleId(Role role);
 
     Optional<UserProfile> findByUserId(Long userId);
 

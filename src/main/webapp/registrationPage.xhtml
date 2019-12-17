@@ -7,15 +7,8 @@
         <div>
             <h2>Hello, #{myBean.name}</h2>
         </div>
-        <h:form onsubmit="this.action='#{request.contextPath}/logout';"
-                class="logout-form">
-            <p:commandButton value="Logout" ajax="false" />
-        </h:form>
-        <font color="red">
-            <h:outputLabel value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
-        </font>
         <div style="margin: 40px auto; text-align: -webkit-center;">
-            <h:form prependId="false">
+            <h:form prependId="false" onsubmit="this.action='#{request.contextPath}/registration';">
 
                 <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
                     <h2>Please login</h2>
@@ -26,7 +19,7 @@
                     <p:inputText id="login" placeholder="User name" />
                     <p:password id="password" placeholder="Password" />
 
-                    <p:commandButton value="Login" ajax="false" />
+                    <p:commandButton value="Registration" ajax="false" />
                 </p:panelGrid>
 
             </h:form>

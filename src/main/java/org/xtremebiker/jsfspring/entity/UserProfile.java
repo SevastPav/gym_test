@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A ClientSystem.
@@ -26,15 +27,23 @@ public class UserProfile implements Serializable {
     @Column(name = "fio", nullable = false)
     private String fio;
 
-    @ManyToOne
+/*    @ManyToOne
     @JoinColumn(name="role_id", nullable = false)
-    private Role roleId;
+    private Role roleId;*/
+
+    @ElementCollection(targetClass = Rle.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Rle> roles;
 
     @Column(name = "login", nullable = false, length = 255)
     private String login;
 
     @Column(name = "password", nullable = false, length = 255)
     private String password;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = Boolean.TRUE;
 
     @Column(name = "birthday")
     private Date birthday;
@@ -57,4 +66,12 @@ public class UserProfile implements Serializable {
 
     @OneToMany(mappedBy="trainerId", cascade = CascadeType.ALL)
     private List<Training> trainings;
+
+    public void setRoles(Set<Rle> roles) {
+        this.roles = roles;
+    }
+
+    public void setFio(String test) {
+        this.fio = test;
+    }
 }
