@@ -2,11 +2,37 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition>
-    <h1>This is our gym</h1>
-    <p>You know you have walked into a serious gym when you encounter a chin-up bar
-        in the shower. Welcome to Fitness24, a meathead mecca that also features a strongman area,
-        mammoth grip building section and more motivational posters than you would find on your network
-        marketing friend's Facebook wall. Yep, it is all about weights here no Pilates, no spinning classes,
-        just iron that must be pumped and it is fast on its way to becoming Europe is answer to Muscle Beach.</p>
+    <h1>This is our timetable</h1>
+    <h1>Первый день недели - #{timeTableBean.monday}</h1>
+    <h1>Последний день недели - #{timeTableBean.sunday}</h1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"/>
+            <th scope="col">Понедельник #{timeTableBean.monday}</th>
+            <th scope="col">Вторник #{timeTableBean.tuesday}</th>
+            <th scope="col">Среда #{timeTableBean.wednesday}</th>
+            <th scope="col">Четверг #{timeTableBean.thursday}</th>
+            <th scope="col">Пятница #{timeTableBean.friday}</th>
+            <th scope="col">Суббота #{timeTableBean.saturday}</th>
+            <th scope="col">Воскресенье #{timeTableBean.sunday}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ui:repeat var="time" value="#{timeTableBean.times}" varStatus="status">
+            <tr>
+                <th scope="row">#{time}</th>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.monday, time)}</td>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.tuesday, time)}</td>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.wednesday, time)}</td>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.thursday, time)}</td>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.friday, time)}</td>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.saturday, time)}</td>
+                <td>#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.sunday, time)}</td>
+            </tr>
+        </ui:repeat>
+        </tbody>
+    </table>
+
 </ui:composition>
 </html>

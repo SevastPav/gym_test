@@ -41,8 +41,29 @@ public class MainController {
         return "/registrationPage.xhtml";
     }
 
-/*    @GetMapping("/403")
-    public String error403() {
-        return "/error/403";
-    }*/
+    @GetMapping("/home")
+    public String home() {
+        return "/welcomePage.xhtml";
+    }
+
+    @GetMapping("/services")
+    public String services() {
+        return "/servicesPage.xhtml";
+    }
+
+    @GetMapping("/timetable")
+    public String timetable() {
+        return "/timetablePage.xhtml";
+    }
+
+    @GetMapping("/contacts")
+    public String contacts() {
+        return "/contactsPage.xhtml";
+    }
+
+    @GetMapping("/create_training")
+    public String createTraining() {
+        return "/createTrainingPage.xhtml";
+    }
+
 }

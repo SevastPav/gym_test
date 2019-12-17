@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<p:dialog styleClass="modal-window"
+          header="Add training"
+          widgetVar="trainingAddDlg" modal="true" id="trainingAddDlg">
+    <div class="modal__add-custom__wrapper">
+        <div class="modal-window__table">
+            <h:form>
+                <div class="producer__details-table__wrapper">
+                    <h:outputLabel class="modal__add-custom__row-label" for="title" value="Название"/>
+                    <p:inputText class="modal__add-custom__row-input" id="title"
+                                 value="#{trainingBean.trainingDto.title}"/>
+                </div>
+                <div class="producer__details-table__wrapper">
+                    <h:outputLabel class="modal__add-custom__row-label" for="description" value="Описание"/>
+                    <p:inputText class="modal__add-custom__row-input" id="description"
+                                 value="#{trainingBean.trainingDto.description}"/>
+                </div>
+                <div class="producer__details-table__wrapper">
+                    <p:outputLabel class="modal__add-custom__row-label" for="onlydate" value="Дата"/>
+                    <p:calendar id="onlydate" class="modal__add-custom__row-input"
+                                value="#{trainingBean.date}"/>
+                </div>
+                <div class="producer__details-table__wrapper">
+                    <p:outputLabel class="modal__add-custom__row-label" for="time" value="Время"/>
+                    <p:calendar id="time" value="#{trainingBean.time}" pattern="HH:mm" timeOnly="true"  />
+                </div>
+                <div class="modal-window__action-buttons-wrapper">
+                    <div class="filters__buttons-submit modal-window__confirm-button-wrapper">
+                        <p:commandButton value="СОХРАНИТЬ" actionListener="#{trainingBean.save}"
+                                         update=":#{p:component('trainingAddDlg')}"
+                                         oncomplete="PF('trainingAddDlg').hide()"/>
+                    </div>
+                    <div class="modal-window__cancel-button-wrapper">
+                        <p:commandButton value="НЕ СОХРАНЯТЬ" actionListener="#{trainingBean.closeAction}"
+                                         oncomplete="PF('trainingAddDlg').hide()"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+    <p:ajax event="close" update="trainingAddDlg"/>
+</p:dialog>
+</html>

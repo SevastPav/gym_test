@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.xtremebiker.jsfspring.entity.Training;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 
@@ -18,5 +20,7 @@ import java.util.List;
 public interface TrainingRepository extends JpaRepository<Training, Long>, JpaSpecificationExecutor<Training> {
 
     List<Training> findAll();
+
+    List<Training> findAllByDateAfterAndDateBefore(LocalDate startDate, LocalDate endDate);
 
 }

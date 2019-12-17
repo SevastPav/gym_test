@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -27,8 +31,14 @@ public class Training implements Serializable {
     @JoinColumn(name="trainer_id")
     private UserProfile trainerId;
 
-    @Column(name = "datetime")
-    private ZonedDateTime dateTime;
+/*    @Column(name = "datetime")
+    private Date dateTime;*/
+
+    @Column(name = "date")
+    private LocalDate date;
+
+    @Column(name = "time")
+    private LocalTime time;
 
     @Column(name = "title", length = 255)
     private String title;
@@ -38,4 +48,5 @@ public class Training implements Serializable {
 
     @ManyToMany(mappedBy = "clientTrainings", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<UserProfile> clients;
+
 }
