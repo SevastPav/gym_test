@@ -1,31 +1,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <p:dialog styleClass="modal-window"
-          header="Record training"
+          header="Запись на тренировку"
           widgetVar="trainingRecordDlg" modal="true" id="trainingRecordDlg">
-    <div class="modal__add-custom__wrapper">
-        <div class="modal-window__table">
-            <h:form>
-                <div class="producer__details-table__wrapper">
-                    <h5 class="card-title">Название: #{timeTableBean.training.title}</h5>
-                    <h5 class="card-title">Описание:</h5>
-                    <p class="card-text">#{timeTableBean.training.title}</p>
-                    <p class="card-text">Дата: #{timeTableBean.training.date}</p>
-                    <p class="card-text">Время: #{timeTableBean.training.time}</p>
-                    <p class="card-text">Тренер: #{timeTableBean.training.trainerId.login}</p>
+    <h:form>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title">Название: </h5>
                 </div>
-                <div class="modal-window__action-buttons-wrapper">
-                    <div class="filters__buttons-submit modal-window__confirm-button-wrapper">
+                <div class="col text-right">
+                    <h5 class="card-title">#{timeTableBean.training.title}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title">Дата: </h5>
+                </div>
+                <div class="col text-right">
+                    <h5 class="card-text">#{timeTableBean.training.date}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title">Время: </h5>
+                </div>
+                <div class="col text-right">
+                    <h5 class="card-text">#{timeTableBean.training.time}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h5 class="card-title">Тренер: </h5>
+                </div>
+                <div class="col text-right">
+                    <h5 class="card-text">#{timeTableBean.training.trainerId.fio}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <c:if test="#{authService.hasRole('USER')}">
                         <p:commandButton value="Записаться" actionListener="#{timeTableBean.recordToTraining()}"
                                          update=":#{p:component('trainingRecordDlg')}"
                                          oncomplete="PF('trainingRecordDlg').hide()"/>
-                    </div>
+                    </c:if>
                 </div>
-            </h:form>
+            </div>
         </div>
-    </div>
+    </h:form>
     <p:ajax event="close" update="trainingRecordDlg"/>
 </p:dialog>
 </html>

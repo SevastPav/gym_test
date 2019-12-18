@@ -23,7 +23,7 @@ public interface TrainingRepository extends JpaRepository<Training, Long>, JpaSp
 
     List<Training> findAll();
 
-    List<Training> findAllByDateAfterAndDateBefore(LocalDate startDate, LocalDate endDate);
+    List<Training> findAllByDateAfterAndDateBeforeAndActive(LocalDate date, LocalDate date2, Boolean active);
 
     List<Training> findAllByDateAfterAndDateBeforeAndTrainerId(LocalDate date, LocalDate date2, UserProfile trainer);
 

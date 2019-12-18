@@ -4,10 +4,12 @@ package org.xtremebiker.jsfspring.view;
 import org.springframework.security.core.context.SecurityContextHolder;*/
 import lombok.Data;
 import lombok.Getter;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 import org.xtremebiker.jsfspring.entity.Training;
 import org.xtremebiker.jsfspring.entity.UserProfile;
@@ -15,6 +17,8 @@ import org.xtremebiker.jsfspring.repository.TrainingRepository;
 import org.xtremebiker.jsfspring.repository.UserProfileRepository;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
@@ -45,7 +49,25 @@ public class TrainingBean {
 		date = new Date();
 	}
 
+	public void error(String details) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", details));
+	}
+
+	public boolean checkTrainingForm(){
+		if (date == null){
+			error("Некорректная дата");
+			return false;
+		}
+		if (time == null){
+			error("Некорректное время");
+			return false;
+		}
+		return true;
+	}
+
 	public void save() {
+		if (!checkTrainingForm())
+			return;
 		Authentication authentication =
 				SecurityContextHolder.getContext().getAuthentication();
 		Optional<UserProfile> trainer = userProfileRepository.findByLogin(authentication.getName());
@@ -54,12 +76,19 @@ public class TrainingBean {
 			trainingDto.setTime(time.toInstant().atZone(ZoneId.systemDefault()).toLocalTime());
 			trainingDto.setTrainerId(trainer.get());
 			trainingRepository.save(trainingDto);
+			PrimeFaces current = PrimeFaces.current();
+			current.executeScript("PF('trainingAddDlg').hide();");
 		}
 	}
 
 	public void delete(Long id) {
 		Optional<Training> training = trainingRepository.findByTrainingId(id);
-		training.ifPresent(trainingRepository::delete);
+		if(training.isPresent()){
+			Training trainingProfile = training.get();
+			trainingProfile.setActive(false);
+			trainingRepository.save(trainingProfile);
+
+		}
 	}
 
 	public void deleteFromRecord(Long id) {

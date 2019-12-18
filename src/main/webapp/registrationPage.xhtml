@@ -1,25 +1,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition template="/templates/template.xhtml">
     <ui:define name="content">
         <div>
             <h2>Hello, #{myBean.name}</h2>
         </div>
         <div style="margin: 40px auto; text-align: -webkit-center;">
-            <h:form prependId="false" onsubmit="this.action='#{request.contextPath}/registration';">
-
+            <h:form>
                 <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
-                    <h2>Registration</h2>
+                    <h2>Регистрация</h2>
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
 
-                    <p:outputLabel value="Login failed!" styleClass="red"
-                                   rendered="${!empty param['error']}" />
+                    <p:inputText id="login" placeholder="Логин" value="#{registrationBean.userProfile.login}"/>
+                    <p:password id="password" placeholder="Пароль" value="#{registrationBean.userProfile.password}"/>
+                    <p:inputText id="fio" placeholder="ФИО" value="#{registrationBean.userProfile.fio}"/>
+                    <p:calendar id="onlydate" placeholder="День рождения" value="#{registrationBean.date}"/>
 
-                    <p:inputText id="login" placeholder="User name" />
-                    <p:password id="password" placeholder="Password" />
-
-                    <p:commandButton value="Registration" ajax="false" />
+                    <p:commandButton value="Зарегистрироваться" ajax="false"
+                                     action="#{registrationBean.saveClient()}" update="@form"/>
+                    <c:if test="#{authService.hasRole('ADMIN')}">
+                        <p:commandButton value="Зарегистрировать Администратора" ajax="false"
+                                         action="#{registrationBean.saveAdmin()}" update="@form"/>
+                        <p:commandButton value="Зарегистрировать Тренера" ajax="false"
+                                         action="#{registrationBean.saveTrainer()}" update="@form"/>
+                    </c:if>
                 </p:panelGrid>
 
             </h:form>

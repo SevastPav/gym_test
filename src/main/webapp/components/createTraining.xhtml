@@ -3,22 +3,25 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition>
-    <h1>Here you can create training</h1>
-    <div class="form__action-buttons-wrapper">
-        <ui:include src="../components/add/trainingAdd.xhtml"/>
-        <h:form>
-            <p:menubar styleClass="table-menu__main">
-                <p:menuitem value="ДОБАВИТЬ ТРЕНИРОВКУ"
-                            oncomplete="PF('trainingAddDlg').show();"
-                            action="#{trainingBean.closeAction}"
-                            update=":#{p:component('trainingAddDlg')}"/>
-            </p:menubar>
-        </h:form>
+    <ui:include src="../components/add/trainingAdd.xhtml"/>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Добавление тренировки</h4>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3">
+                <h:form>
+                    <p:menubar styleClass="table-menu__main">
+                        <p:menuitem value="ДОБАВИТЬ ТРЕНИРОВКУ"
+                                    oncomplete="PF('trainingAddDlg').show();"
+                                    action="#{trainingBean.closeAction}"
+                                    update=":#{p:component('trainingAddDlg')}"/>
+                    </p:menubar>
+                </h:form>
+            </div>
+        </div>
     </div>
-    <p>You know you have walked into a serious gym when you encounter a chin-up bar
-        in the shower. Welcome to Fitness24, a meathead mecca that also features a strongman area,
-        mammoth grip building section and more motivational posters than you would find on your network
-        marketing friend's Facebook wall. Yep, it is all about weights here no Pilates, no spinning classes,
-        just iron that must be pumped and it is fast on its way to becoming Europe is answer to Muscle Beach.</p>
 </ui:composition>
 </html>

@@ -3,7 +3,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
     <div class="container">
         <div class="row align-items-end menu">
@@ -21,32 +21,46 @@
                         <a class="nav-link link_menu"
                            href="#{request.contextPath}/timetable">Расписание</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link_menu"
-                           href="#{request.contextPath}/create_training">Создать тренировку</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link_menu"
-                           href="#{request.contextPath}/training_list">Мои тренировки</a>
-                    </li>
+                    <c:if test="#{authService.hasRole('TRAINER')}">
+                        <li class="nav-item">
+                            <a class="nav-link link_menu"
+                               href="#{request.contextPath}/create_training">Создать тренировку</a>
+                        </li>
+                    </c:if>
+                    <c:if test="#{authService.hasRole('USER') or authService.hasRole('TRAINER')}">
+                        <li class="nav-item">
+                            <a class="nav-link link_menu"
+                               href="#{request.contextPath}/training_list">Мои тренировки</a>
+                        </li>
+                    </c:if>
                     <li class="nav-item">
                         <a class="nav-link link_menu"
                            href="#{request.contextPath}/contacts">Контакты</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link_menu"
-                           href="#{request.contextPath}/login">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link_menu"
-                           href="#{request.contextPath}/registration">Регистрация</a>
-                    </li>
-                    <li class="nav-item">
-                        <h:form>
+                    <c:if test="#{authService.hasRole('ADMIN')}">
+                        <li class="nav-item">
                             <a class="nav-link link_menu"
-                               href="#{request.contextPath}/logout">Выйти</a>
-                        </h:form>
-                    </li>
+                               href="#{request.contextPath}/registration">Регистрация</a>
+                        </li>
+                    </c:if>
+                    <c:if test="#{not authService.isAuth()}">
+                        <li class="nav-item">
+                            <a class="nav-link link_menu"
+                               href="#{request.contextPath}/login">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link_menu"
+                               href="#{request.contextPath}/registration">Регистрация</a>
+                        </li>
+                    </c:if>
+                    <c:if test="#{authService.isAuth()}">
+                        <li class="nav-item">
+                            <h:form>
+                                <a class="nav-link link_menu"
+                                   href="#{request.contextPath}/logout">Выйти</a>
+                            </h:form>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>

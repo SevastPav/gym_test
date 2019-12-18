@@ -2,23 +2,32 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:sec="http://www.springframework.org/security/tags">
+      xmlns:sec="http://www.springframework.org/security/tags" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
-    <h:form>
-        <ui:repeat var="training" value="#{trainingListBean.getAllTrainings()}" varStatus="status">
+    <ui:repeat var="training" value="#{trainingListBean.getAllTrainings()}" varStatus="status">
+        <h:form>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">#{training.title}</h5>
                     <p class="card-text">Дата: #{training.date}</p>
                     <p class="card-text">Время: #{training.time}</p>
                     <p class="card-text">Количество участников: #{training.clients.size()}</p>
-                    <p:commandButton value="Удалить" actionListener="#{trainingBean.delete(training.trainingId)}"
-                                     update="@form"/>
-                    <p:commandButton value="Отменить" actionListener="#{trainingBean.deleteFromRecord(training.trainingId)}"
-                                     update="@form"/>
+                    <p class="card-text">Описание: #{training.description}</p>
+                        <c:if test="#{authService.hasRole('USER')}">
+                            <p:commandButton value="Отменить"
+                                             ajax="false"
+                                             actionListener="#{trainingBean.deleteFromRecord(training.trainingId)}"
+                                             update="@form"/>
+                        </c:if>
+                        <c:if test="#{authService.hasRole('TRAINER')}">
+                            <p:commandButton value="Удалить"
+                                             ajax="false"
+                                             actionListener="#{trainingBean.delete(training.trainingId)}"
+                                             update="@form"/>
+                        </c:if>
                 </div>
             </div>
-        </ui:repeat>
-    </h:form>
+        </h:form>
+    </ui:repeat>
 </ui:composition>
 </html>

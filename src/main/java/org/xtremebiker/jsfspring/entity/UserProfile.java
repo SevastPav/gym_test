@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -47,16 +48,10 @@ public class UserProfile implements Serializable {
     private Boolean active = Boolean.TRUE;
 
     @Column(name = "birthday")
-    private Date birthday;
-
-    @Column(name = "phone", length = 255)
-    private String phone;
+    private LocalDate birthday;
 
     @Column(name = "entry_date")
     private Date entryDate;
-
-    @Column(name = "balance")
-    private Integer balance;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -65,7 +60,7 @@ public class UserProfile implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "training_id"))
     List<Training> clientTrainings;
 
-    @OneToMany(mappedBy="trainerId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="trainerId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Training> trainings;
 
     public void setRoles(Set<Rle> roles) {

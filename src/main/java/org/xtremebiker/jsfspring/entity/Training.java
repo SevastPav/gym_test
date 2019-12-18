@@ -27,7 +27,7 @@ public class Training implements Serializable {
     @Column(name = "training_id", nullable = false, unique = true)
     private Long trainingId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="trainer_id")
     private UserProfile trainerId;
 
@@ -45,6 +45,9 @@ public class Training implements Serializable {
 
     @Column(name = "description", length = 255)
     private String description;
+
+    @Column(name = "active", nullable = false)
+    private Boolean active = Boolean.TRUE;
 
     @ManyToMany(mappedBy = "clientTrainings", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<UserProfile> clients;

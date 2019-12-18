@@ -2,22 +2,40 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:sec="http://www.springframework.org/security/tags">
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition>
-    <sec:authorize access="hasRole('ADMIN')">
-        hello
-    </sec:authorize>
-    <sec:authorize access="hasAuthority('ADMIN')">
-        <p:outputLabel value="You have the ADMIN role" />
-    </sec:authorize>
-    <div>
-        <h2>Hello, #{myBean.name}</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Немного слов о нашем зале</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>
+                    <br/>В тренажерном зале фитнес-клуба «Данс-Холл» в Екатеринбурге созданы все условия для того,
+                    <br/>чтобы занятия спортом приносили огромное эмоциональное удовольствие и давали высокие результаты
+                    <br/>по развитию мышечной массы, силы и выносливости.
+                    <br/>
+                    <br/>Оснащение тренажерного зала клуба «Данс-Холл» включает в себя не только полный набор свободных
+                    <br/>весов и линейку профессиональных тренажеров, но и ряд зон для индивидуального фитнеса и аэробики.
+                    <br/>
+                    <br/>Всё оборудование и тренажеры, представленные в нашем зале, идеально подходит для решения различных
+                    <br/>задач по коррекции фигуры, например:
+                    <br/>
+                    <br/>-набрать мышечную массу;
+                    <br/>-увеличить физическую силу и выносливость;
+                    <br/>-похудеть или «подтянуть» фигуру.
+                    <br/>
+                    <br/>Интерьер тренажерного зала «Данс-Холл» продуман таким образом, чтобы внутри создавалась
+                    <br/>благоприятная для занятий атмосфера, которая гармонично дополняется всем необходимым для
+                    <br/>комфортного времяпрепровождения: от удобных раздевалок и душевых, до надежных персональных
+                    <br/>шкафчиков. Отличная система приточной вентиляции и кондиционирования создаст комфортную атмосферу
+                    <br/>в зале даже в жаркие летние дни.
+                </p>
+            </div>
+        </div>
     </div>
-    <h1>This is our gym</h1>
-    <p>You know you have walked into a serious gym when you encounter a chin-up bar
-        in the shower. Welcome to Fitness24, a meathead mecca that also features a strongman area,
-        mammoth grip building section and more motivational posters than you would find on your network
-        marketing friend's Facebook wall. Yep, it is all about weights here no Pilates, no spinning classes,
-        just iron that must be pumped and it is fast on its way to becoming Europe is answer to Muscle Beach.</p>
 </ui:composition>
 </html>

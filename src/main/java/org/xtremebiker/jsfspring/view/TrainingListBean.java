@@ -20,51 +20,57 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @SessionScope
 @Getter
 public class TrainingListBean {
 
-	List<Training> trainings = new ArrayList<>();
+    List<Training> trainings = new ArrayList<>();
 
-	List<LocalTime> times = new ArrayList<>();
+    List<LocalTime> times = new ArrayList<>();
 
-	private final TrainingRepository trainingRepository;
+    private final TrainingRepository trainingRepository;
 
-	private final UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
 
-	private final WeekService weekService;
+    private final WeekService weekService;
 
 
-	public TrainingListBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository, WeekService weekService) {
-		this.userProfileRepository = userProfileRepository;
-		this.trainingRepository = trainingRepository;
-		this.weekService = weekService;
-	}
+    public TrainingListBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository, WeekService weekService) {
+        this.userProfileRepository = userProfileRepository;
+        this.trainingRepository = trainingRepository;
+        this.weekService = weekService;
+    }
 
-	public List<Training> getAllTrainings(){
-		weekService.setCurrentWeek();
-		Authentication authentication =
-				SecurityContextHolder.getContext().getAuthentication();
-		Optional<UserProfile> trainer = userProfileRepository.findByLogin(authentication.getName());
-		if(trainer.isPresent()){
-			UserProfile user = trainer.get();
-			if (user.getRoles().contains(Rle.TRAINER))
-				return user.getTrainings();
-			if (user.getRoles().contains(Rle.USER))
-				return user.getClientTrainings();
-		}
+    public List<Training> getAllTrainings() {
+        weekService.setCurrentWeek();
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        Optional<UserProfile> trainer = userProfileRepository.findByLogin(authentication.getName());
+        if (trainer.isPresent()) {
+            UserProfile user = trainer.get();
+            if (user.getRoles().contains(Rle.TRAINER))
+                return user.getTrainings().stream()
+                        .filter((p) -> p.getActive() == true)
+                        .collect(Collectors.toList());
+            if (user.getRoles().contains(Rle.USER))
+                return user.getClientTrainings().stream()
+                        .filter((p) -> p.getActive() == true)
+                        .collect(Collectors.toList());
+        }
 /*		return trainingRepository
 				.findAllByDateAfterAndDateBeforeAndTrainerId(weekService.getMonday().minusDays(1), weekService.getSunday().plusDays(1), trainer.get());*/
-		return new ArrayList<>();
-	}
+        return new ArrayList<>();
+    }
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 
-	}
+    }
 
 }

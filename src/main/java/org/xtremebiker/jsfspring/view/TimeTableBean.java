@@ -48,7 +48,7 @@ public class TimeTableBean {
 	public List<LocalTime> getAllTimes(){
 		weekService.setCurrentWeek();
 		List<Training> trainingsList = trainingRepository
-				.findAllByDateAfterAndDateBefore(weekService.getMonday().minusDays(1), weekService.getSunday().plusDays(1));
+				.findAllByDateAfterAndDateBeforeAndActive(weekService.getMonday().minusDays(1), weekService.getSunday().plusDays(1), true);
 		for (Training training:trainingsList) {
 			if(!table.contains(training.getDate(), training.getTime())){
 				table.put(training.getDate(), training.getTime(), training);
