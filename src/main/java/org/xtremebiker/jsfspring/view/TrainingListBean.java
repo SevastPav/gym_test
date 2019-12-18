@@ -2,10 +2,10 @@ package org.xtremebiker.jsfspring.view;
 
 /*import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;*/
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -16,18 +16,20 @@ import org.xtremebiker.jsfspring.repository.TrainingRepository;
 import org.xtremebiker.jsfspring.repository.UserProfileRepository;
 
 import javax.annotation.PostConstruct;
-import javax.faces.event.ActionEvent;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @SessionScope
 @Getter
-public class TimeTableBean {
+public class TrainingListBean {
 
-	Table<LocalDate, LocalTime, Training> table = HashBasedTable.create();
+	List<Training> trainings = new ArrayList<>();
 
 	private LocalDate today = LocalDate.now();
 	private LocalDate monday;
@@ -40,11 +42,8 @@ public class TimeTableBean {
 
 	List<LocalTime> times = new ArrayList<>();
 
-	Training training;
-
 	private final TrainingRepository trainingRepository;
 
-	@Autowired
 	private final UserProfileRepository userProfileRepository;
 
 	private void setCurrentWeek(){
@@ -61,43 +60,21 @@ public class TimeTableBean {
 		sunday = saturday.plusDays(1);
 	}
 
-	public TimeTableBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository) {
-		this.trainingRepository = trainingRepository;
+	public TrainingListBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository) {
 		this.userProfileRepository = userProfileRepository;
+		this.trainingRepository = trainingRepository;
+/*		trainer.ifPresent(userProfile -> trainings = trainingRepository
+				.findAllByDateAfterAndDateBeforeAndTrainerId(monday, sunday, userProfile));*/
+	}
+
+	public List<Training> getAllTrainings(){
 		setCurrentWeek();
-		List<Training> trainingsList = trainingRepository
-				.findAllByDateAfterAndDateBefore(monday.minusDays(1), sunday.plusDays(1));
-		for (Training training:trainingsList) {
-			table.put(training.getDate(), training.getTime(), training);
-			times.add(training.getTime());
-		}
-		Collections.sort(times);
-	}
-
-	public String getTrainingTitleByDateTime(LocalDate date, LocalTime time){
-		Training training = table.get(date, time);
-		if(training != null)
-			return training.getTitle();
-		return "";
-	}
-
-	public Training getTrainingByDateTime(LocalDate date, LocalTime time){
-		return table.get(date, time);
-	}
-
-	public void attrListener(ActionEvent event){
-		training = (Training)event.getComponent().getAttributes().get("training");
-	}
-
-	public void recordToTraining(){
 		Authentication authentication =
 				SecurityContextHolder.getContext().getAuthentication();
-		Optional<UserProfile> client = userProfileRepository.findByLogin(authentication.getName());
-		if (client.isPresent()){
-			UserProfile clientProfile = client.get();
-			clientProfile.getClientTrainings().add(training);
-			userProfileRepository.save(clientProfile);
-		}
+		Optional<UserProfile> trainer = userProfileRepository.findByLogin(authentication.getName());
+		trainings = trainingRepository
+				.findAllByDateAfterAndDateBefore(monday.minusDays(1), sunday.plusDays(1));
+		return trainings;
 	}
 
 	@PostConstruct

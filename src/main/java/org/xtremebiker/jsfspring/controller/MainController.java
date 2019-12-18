@@ -4,17 +4,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.xtremebiker.jsfspring.entity.Rle;
+import org.xtremebiker.jsfspring.entity.Training;
 import org.xtremebiker.jsfspring.entity.UserProfile;
+import org.xtremebiker.jsfspring.repository.TrainingRepository;
 import org.xtremebiker.jsfspring.repository.UserProfileRepository;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Controller
 public class MainController {
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
+    private final UserProfileRepository userProfileRepository;
+
+    private final TrainingRepository trainingRepository;
+
+    public MainController(UserProfileRepository userProfileRepository, TrainingRepository trainingRepository) {
+        this.userProfileRepository = userProfileRepository;
+        this.trainingRepository = trainingRepository;
+    }
 
     //Мы могли бы расписать эти 2 маппинга отдельно, но смысла дублировать одинаковый код нет.
     // этот метод будет слушать запросы на "/" и "/index"
@@ -69,6 +79,18 @@ public class MainController {
     @GetMapping("/create_training")
     public String createTraining() {
         return "/createTrainingPage.xhtml";
+    }
+
+    @GetMapping("/training_list")
+    public String trainingList() {
+        return "/trainingListPage.xhtml";
+    }
+
+    @GetMapping("/delete_training")
+    public String deleteTraining(@RequestParam(name = "id") Long id) {
+        Optional<Training> training = trainingRepository.findByTrainingId(id);
+        training.ifPresent(trainingRepository::delete);
+        return "/trainingListPage.xhtml";
     }
 
 }

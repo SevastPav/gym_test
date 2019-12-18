@@ -1,8 +1,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 <ui:composition>
+    <sec:authorize access="hasRole('ADMIN')">
+        hello
+    </sec:authorize>
+    <sec:authorize access="hasAuthority('ADMIN')">
+        <p:outputLabel value="You have the ADMIN role" />
+    </sec:authorize>
     <div>
         <h2>Hello, #{myBean.name}</h2>
     </div>

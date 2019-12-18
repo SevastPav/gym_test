@@ -5,14 +5,19 @@ import org.springframework.security.core.context.SecurityContextHolder;*/
 import lombok.Data;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import org.xtremebiker.jsfspring.entity.Training;
+import org.xtremebiker.jsfspring.entity.UserProfile;
 import org.xtremebiker.jsfspring.repository.TrainingRepository;
+import org.xtremebiker.jsfspring.repository.UserProfileRepository;
 
 import javax.annotation.PostConstruct;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 @SessionScope
@@ -27,7 +32,10 @@ public class TrainingBean {
 
 	private final TrainingRepository trainingRepository;
 
-	public TrainingBean(TrainingRepository trainingRepository) {
+	private final UserProfileRepository userProfileRepository;
+
+	public TrainingBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository) {
+		this.userProfileRepository = userProfileRepository;
 		this.trainingRepository = trainingRepository;
 	}
 
@@ -38,10 +46,18 @@ public class TrainingBean {
 	}
 
 	public void save() {
-		int i = 1;
+		Authentication authentication =
+				SecurityContextHolder.getContext().getAuthentication();
+		Optional<UserProfile> trainer = userProfileRepository.findByLogin(authentication.getName());
 		trainingDto.setDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 		trainingDto.setTime(time.toInstant().atZone(ZoneId.systemDefault()).toLocalTime());
+		trainingDto.setTrainerId(trainer.get());
 		trainingRepository.save(trainingDto);
+	}
+
+	public void delete(Long id) {
+		Optional<Training> training = trainingRepository.findByTrainingId(id);
+		training.ifPresent(trainingRepository::delete);
 	}
 
 	public void closeAction() {

@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<p:dialog styleClass="modal-window"
+          header="Record training"
+          widgetVar="trainingRecordDlg" modal="true" id="trainingRecordDlg">
+    <div class="modal__add-custom__wrapper">
+        <div class="modal-window__table">
+            <h:form>
+                <div class="producer__details-table__wrapper">
+                    <h5 class="card-title">Название: #{timeTableBean.training.title}</h5>
+                    <h5 class="card-title">Описание:</h5>
+                    <p class="card-text">#{timeTableBean.training.title}</p>
+                    <p class="card-text">Дата: #{timeTableBean.training.date}</p>
+                    <p class="card-text">Время: #{timeTableBean.training.time}</p>
+                </div>
+                <div class="modal-window__action-buttons-wrapper">
+                    <div class="filters__buttons-submit modal-window__confirm-button-wrapper">
+                        <p:commandButton value="Записаться" actionListener="#{timeTableBean.recordToTraining()}"
+                                         update=":#{p:component('trainingRecordDlg')}"
+                                         oncomplete="PF('trainingRecordDlg').hide()"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+    <p:ajax event="close" update="trainingRecordDlg"/>
+</p:dialog>
+</html>

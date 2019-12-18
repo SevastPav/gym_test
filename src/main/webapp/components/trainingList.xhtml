@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+<ui:composition>
+    <h:form>
+        <ui:repeat var="training" value="#{trainingListBean.getAllTrainings()}" varStatus="status">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">#{training.title}</h5>
+                    <p class="card-text">Дата: #{training.date}</p>
+                    <p class="card-text">Время: #{training.time}</p>
+                    <p class="card-text">Количество участников: #{training.clients.size()}</p>
+                    <p:commandButton value="Отменить" actionListener="#{trainingBean.delete(training.trainingId)}"
+                                     update="@form"/>
+                </div>
+            </div>
+        </ui:repeat>
+    </h:form>
+</ui:composition>
+</html>
