@@ -81,8 +81,8 @@ public class JsfSpringBootApplication implements ServletContextAware {
 			log.warn("The host name could not be determined, using `localhost` as fallback");
 		}
 		log.info("\n----------------------------------------------------------\n\t" +
-						"Application '{}' is running! Access URLs:\n\t" + "Local: \t\t{}://localhost:{}{}welcomePage.xhtml\n\t" +
-						"External: \t{}://{}:{}{}welcomePage.xhtml\n\t" +
+						"Application '{}' is running! Access URLs:\n\t" + "Local: \t\t{}://localhost:{}{}\n\t" +
+						"External: \t{}://{}:{}{}\n\t" +
 						"Profile(s): \t{}\n----------------------------------------------------------",
 				env.getProperty("spring.application.name"), protocol, serverPort, contextPath, protocol, hostAddress,
 				serverPort, contextPath, env.getActiveProfiles());
