@@ -5,8 +5,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 <ui:composition>
     <ui:include src="../components/record/trainingRecord.xhtml"/>
-    <h1>Первый день недели - #{timeTableBean.monday}</h1>
-    <h1>Последний день недели - #{timeTableBean.sunday}</h1>
+    <h1>Первый день недели - #{timeTableBean.weekService.monday}</h1>
+    <h1>Последний день недели - #{timeTableBean.weekService.sunday}</h1>
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -21,94 +21,83 @@
         </tr>
         </thead>
         <tbody>
-        <ui:repeat var="time" value="#{timeTableBean.times}" varStatus="status">
+        <ui:repeat var="time" value="#{timeTableBean.getAllTimes()}" varStatus="status">
             <tr>
                 <th scope="row">#{time}</th>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.monday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.monday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.monday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.monday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.monday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.tuesday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.monday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.tuesday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.tuesday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.wednesday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.tuesday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.wednesday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.wednesday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.thursday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.wednesday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.thursday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.thursday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.friday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.thursday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.friday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.friday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.saturday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.friday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.saturday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>
                 <td>
                     <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.saturday, time)}"
+                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.weekService.sunday, time)}"
                                        oncomplete="PF('trainingRecordDlg').show();"
                                        actionListener="#{timeTableBean.attrListener}"
                                        update=":#{p:component('trainingRecordDlg')}">
                             <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.saturday, time)}"/>
-                        </p:commandLink>
-                    </h:form>
-                </td>
-                <td>
-                    <h:form>
-                        <p:commandLink value="#{timeTableBean.getTrainingTitleByDateTime(timeTableBean.sunday, time)}"
-                                       oncomplete="PF('trainingRecordDlg').show();"
-                                       actionListener="#{timeTableBean.attrListener}"
-                                       update=":#{p:component('trainingRecordDlg')}">
-                            <f:attribute name="training"
-                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.sunday, time)}"/>
+                                         value="#{timeTableBean.getTrainingByDateTime(timeTableBean.weekService.sunday, time)}"/>
                         </p:commandLink>
                     </h:form>
                 </td>

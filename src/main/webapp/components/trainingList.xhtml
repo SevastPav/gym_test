@@ -12,7 +12,9 @@
                     <p class="card-text">Дата: #{training.date}</p>
                     <p class="card-text">Время: #{training.time}</p>
                     <p class="card-text">Количество участников: #{training.clients.size()}</p>
-                    <p:commandButton value="Отменить" actionListener="#{trainingBean.delete(training.trainingId)}"
+                    <p:commandButton value="Удалить" actionListener="#{trainingBean.delete(training.trainingId)}"
+                                     update="@form"/>
+                    <p:commandButton value="Отменить" actionListener="#{trainingBean.deleteFromRecord(training.trainingId)}"
                                      update="@form"/>
                 </div>
             </div>
