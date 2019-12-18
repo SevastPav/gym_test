@@ -1,5 +1,5 @@
 package org.xtremebiker.jsfspring.config;
-/*
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,53 +13,35 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private final AccessDeniedHandler accessDeniedHandler;
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
-    // роль admin всегда есть доступ к /admin/**
-    // роль user всегда есть доступ к /user/**
-    // Наш кастомный "403 access denied" обработчик
+    public SpringSecurityConfig(AccessDeniedHandler accessDeniedHandler, DataSource dataSource) {
+        this.accessDeniedHandler = accessDeniedHandler;
+        this.dataSource = dataSource;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/registration").permitAll()
+                .antMatchers("/", "/index", "/login", "/registration").permitAll()
                 .antMatchers("/admin/**").hasAnyRole("admin")
                 .antMatchers("/user/**").hasAnyRole("user")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .usernameParameter("login")
                 .passwordParameter("password")
-                .loginPage("/login")
+                .loginPage("/loginPage.xhtml")
+                //.successForwardUrl("/home")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-
-        */
-/*http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/", "/index", "/registration").permitAll()
-                .antMatchers("/admin/**").hasAnyRole("admin")
-                .antMatchers("/user/**").hasAnyRole("user")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-        http.logout().logoutSuccessUrl("/loginPage.xhtml");*//*
-
     }
 
     @Override
@@ -67,18 +49,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("select login, password, active from public.user_profile where login = ?")
-                .authoritiesByUsernameQuery("select u.login, ur.roles from public.user_profile u inner join public.user_role ur in u.id = ur.user_id where u.login = ?");
-    }
+                .usersByUsernameQuery("select login, password, active from user_profile where login = ?")
+                .authoritiesByUsernameQuery("select u.login, ur.roles from user_profile u inner join user_role ur on u.user_id = ur.user_id where u.login = ?");
+   }
 
-    // создаем пользоватлелей, admin и user
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER")
-                .and()
-                .withUser("admin").password("password").roles("ADMIN");
-    }
 }
-*/

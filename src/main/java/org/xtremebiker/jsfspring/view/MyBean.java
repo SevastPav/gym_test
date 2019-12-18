@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 /*import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;*/
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -31,10 +33,10 @@ public class MyBean {
 	}
 
 	public String getName() {
-		/*Authentication authentication =
+		Authentication authentication =
 				SecurityContextHolder.getContext().getAuthentication();
-		return authentication.getName();*/
-		return "test";
+		return authentication.getName();
+		//return "test";
 	}
 
 /*	public Role getRole(){

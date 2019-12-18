@@ -1,6 +1,6 @@
 package org.xtremebiker.jsfspring.controller;
 
-/*import org.slf4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-*//**
- * обрабатывает 403 ошибку перенаправляя в случае ее вызова на /403 страницу
- *//*
 
 @Component
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
@@ -33,4 +30,4 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
         }
         httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/403");
     }
-}*/
+}

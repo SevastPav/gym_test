@@ -24,9 +24,14 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String admin() {
+    public String login() {
         return "/loginPage.xhtml";
     }
+
+/*    @PostMapping("/login")
+    public String loginPost() {
+        return "/welcomePage.xhtml";
+    }*/
 
     @GetMapping("/registration")
     public String registtration() {
