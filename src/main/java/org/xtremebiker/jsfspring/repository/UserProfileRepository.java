@@ -4,10 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.xtremebiker.jsfspring.entity.Rle;
 import org.xtremebiker.jsfspring.entity.UserProfile;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -25,5 +27,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long>,
     Optional<UserProfile> findByUserId(Long userId);
 
     Optional<UserProfile> findByLogin(String username);
+
+    List<UserProfile> findAllByRoles(Set<Rle> roles);
 
 }

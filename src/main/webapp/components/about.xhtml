@@ -9,6 +9,11 @@
         <div class="row">
             <div class="col">
                 <h4>Привет, #{myBean.getName()}! Прочти о нашем зале</h4>
+                <c:if test="#{authService.hasRole('ADMIN')}">
+                    <h4>Кол-во администраторов - #{myBean.getAdminCount()}</h4>
+                    <h4>Кол-во тренеров - #{myBean.getClientCount()}</h4>
+                    <h4>Кол-во клиентов - #{myBean.getTrainerCount()}</h4>
+                </c:if>
             </div>
         </div>
         <div class="row">
