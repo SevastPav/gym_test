@@ -28,14 +28,37 @@
                 <div class="col-1"></div>
                 <div class="col-2">
                     <p:selectOneMenu id="trainer" value="#{trainerStatisticBean.trainerId}">
+                        <f:selectItem itemLabel="Все" itemValue="0" noSelectionOption="true"/>
                         <f:selectItems value="#{trainerStatisticBean.trainers}"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="col-1">
                     <p:commandButton value="Показать" ajax="false"
-                                     update=":#{p:component('dataId')}"
+                                     update=":#{p:component('dataId')} #{p:component('topId')}"
                                      action="#{trainerStatisticBean.showTrainings}"/>
                 </div>
+            </div>
+        </h:form>
+        <h:form id="topId" rendered="#{trainerStatisticBean.topTrainings.size() >=3}">
+            <div class="row mt-3">
+                <div class="col">
+                    <h4>Топ-3 популярных тренировок</h4>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <ui:repeat var="training" value="#{trainerStatisticBean.topTrainings}" varStatus="status">
+                    <h:form>
+                        <div class="card ml-2" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">#{training.title}</h5>
+                                <p class="card-text">Дата: #{training.date}</p>
+                                <p class="card-text">Время: #{training.time}</p>
+                                <p class="card-text">Количество участников: #{training.clients.size()}</p>
+                                <p class="card-text">Описание: #{training.description}</p>
+                            </div>
+                        </div>
+                    </h:form>
+                </ui:repeat>
             </div>
         </h:form>
         <h:form id="dataId">

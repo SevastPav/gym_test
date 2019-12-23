@@ -33,6 +33,14 @@ public class TrainerStatisticBean {
 
     public Date endDate;
 
+    List<Training> topTrainings = new ArrayList<>();
+
+    public Training top1;
+
+    public Training top2;
+
+    public Training top3;
+
     List<Training> trainings = new ArrayList<>();
 
     private final UserProfileRepository userProfileRepository;
@@ -53,8 +61,17 @@ public class TrainerStatisticBean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", details));
     }
 
+    public void createTop(List<Training> trainings){
+        trainings.sort((l, r) -> r.getClients().size() - l.getClients().size());
+        if (trainings.size() >= 3){
+            for (int i = 0; i < 3; i++)
+                topTrainings.add(trainings.get(i));
+        }
+    }
+
     public void showTrainings() {
         try {
+            topTrainings = new ArrayList<>();
             Optional<UserProfile> trainer = userProfileRepository.findByUserId(trainerId);
             if (trainer.isPresent()) {
                 trainings = trainingRepository.findAllByDateAfterAndDateBeforeAndTrainerId(
@@ -62,8 +79,11 @@ public class TrainerStatisticBean {
                         endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(1),
                         trainer.get());
             } else {
-                trainings = new ArrayList<>();
+                trainings = trainingRepository.findAllByDateAfterAndDateBefore(
+                        startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().minusDays(1),
+                        endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(1));
             }
+            createTop(trainings);
         } catch (Exception ex) {
     		error("Некорректные данные");
         }
