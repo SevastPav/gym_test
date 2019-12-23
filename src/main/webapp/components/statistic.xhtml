@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/tags"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Статистика</h4>
+            </div>
+        </div>
+        <h:form id="filterId">
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <div class="row mt-3">
+                <div class="col-2">
+                    <p:calendar id="startDate" value="#{trainerStatisticBean.startDate}"/>
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-2">
+                    <p:calendar id="endDate" value="#{trainerStatisticBean.endDate}"/>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2">
+                    <p:selectOneMenu id="trainer" value="#{trainerStatisticBean.trainerId}">
+                        <f:selectItems value="#{trainerStatisticBean.trainers}"/>
+                    </p:selectOneMenu>
+                </div>
+                <div class="col-1">
+                    <p:commandButton value="Показать" ajax="false"
+                                     update=":#{p:component('dataId')}"
+                                     action="#{trainerStatisticBean.showTrainings}"/>
+                </div>
+            </div>
+        </h:form>
+        <h:form id="dataId">
+            <div class="row mt-3">
+                <div class="col">
+                    <h4>Количество тренировок - #{trainerStatisticBean.trainings.size()}</h4>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <ui:repeat var="training" value="#{trainerStatisticBean.trainings}" varStatus="status">
+                    <h:form>
+                        <div class="card ml-2" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">#{training.title}</h5>
+                                <p class="card-text">Дата: #{training.date}</p>
+                                <p class="card-text">Время: #{training.time}</p>
+                                <p class="card-text">Количество участников: #{training.clients.size()}</p>
+                                <p class="card-text">Описание: #{training.description}</p>
+                            </div>
+                        </div>
+                    </h:form>
+                </ui:repeat>
+            </div>
+        </h:form>
+    </div>
+</ui:composition>
+</html>

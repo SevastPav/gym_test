@@ -61,6 +61,11 @@ public class MainController {
         return "/welcomePage.xhtml";
     }
 
+    @GetMapping("/statistic")
+    public String statistic() {
+        return "/statisticPage.xhtml";
+    }
+
     @GetMapping("/services")
     public String services() {
         return "/servicesPage.xhtml";

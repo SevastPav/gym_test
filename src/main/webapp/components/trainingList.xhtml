@@ -6,7 +6,7 @@
 <ui:composition>
     <ui:repeat var="training" value="#{trainingListBean.getAllTrainings()}" varStatus="status">
         <h:form>
-            <div class="card" style="width: 18rem;">
+            <div class="card ml-2" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">#{training.title}</h5>
                     <p class="card-text">Дата: #{training.date}</p>
