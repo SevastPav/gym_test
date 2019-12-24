@@ -44,7 +44,7 @@ public class RegistrationBean {
         userProfile = new UserProfile();
     }
 
-    public boolean checkRegistrationForm(UserProfile userProfile) {
+    private boolean checkRegistrationForm(UserProfile userProfile) {
         errors = new ArrayList<>();
         if (userProfile.getLogin().isEmpty()) {
             errors.add("Некорректный логин");
@@ -72,7 +72,7 @@ public class RegistrationBean {
         return errors.isEmpty();
     }
 
-    public void error(String details) {
+    private void error(String details) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", details));
     }
 

@@ -1,8 +1,5 @@
 package org.xtremebiker.jsfspring.view;
 
-/*import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;*/
-
 import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,11 +13,8 @@ import org.xtremebiker.jsfspring.repository.UserProfileRepository;
 import org.xtremebiker.jsfspring.services.WeekService;
 
 import javax.annotation.PostConstruct;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,8 +57,6 @@ public class TrainingListBean {
                         .filter((p) -> p.getActive() == true)
                         .collect(Collectors.toList());
         }
-/*		return trainingRepository
-				.findAllByDateAfterAndDateBeforeAndTrainerId(weekService.getMonday().minusDays(1), weekService.getSunday().plusDays(1), trainer.get());*/
         return new ArrayList<>();
     }
 

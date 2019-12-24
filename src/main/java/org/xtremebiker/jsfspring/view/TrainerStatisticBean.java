@@ -35,12 +35,6 @@ public class TrainerStatisticBean {
 
     List<Training> topTrainings = new ArrayList<>();
 
-    public Training top1;
-
-    public Training top2;
-
-    public Training top3;
-
     List<Training> trainings = new ArrayList<>();
 
     private final UserProfileRepository userProfileRepository;

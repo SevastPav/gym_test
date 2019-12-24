@@ -52,7 +52,8 @@ public class TimeTableBean {
 		for (Training training:trainingsList) {
 			if(!table.contains(training.getDate(), training.getTime())){
 				table.put(training.getDate(), training.getTime(), training);
-				times.add(training.getTime());
+				if (!times.contains(training.getTime()))
+					times.add(training.getTime());
 			}
 		}
 		Collections.sort(times);

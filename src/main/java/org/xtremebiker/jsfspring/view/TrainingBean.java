@@ -49,11 +49,11 @@ public class TrainingBean {
 		date = new Date();
 	}
 
-	public void error(String details) {
+	private void error(String details) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", details));
 	}
 
-	public boolean checkTrainingForm(){
+	private boolean checkTrainingForm(){
 		if (date == null){
 			error("Некорректная дата");
 			return false;
@@ -87,7 +87,6 @@ public class TrainingBean {
 			Training trainingProfile = training.get();
 			trainingProfile.setActive(false);
 			trainingRepository.save(trainingProfile);
-
 		}
 	}
 

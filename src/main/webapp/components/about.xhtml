@@ -8,11 +8,11 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h4>Привет, #{myBean.getName()}! Прочти о нашем зале</h4>
+                <h4>Привет, #{extraInfoBean.getName()}! Прочти о нашем зале</h4>
                 <c:if test="#{authService.hasRole('ADMIN')}">
-                    <h4>Кол-во администраторов - #{myBean.getAdminCount()}</h4>
-                    <h4>Кол-во тренеров - #{myBean.getTrainerCount()}</h4>
-                    <h4>Кол-во клиентов - #{myBean.getClientCount()}</h4>
+                    <h4>Кол-во администраторов - #{extraInfoBean.getAdminCount()}</h4>
+                    <h4>Кол-во тренеров - #{extraInfoBean.getTrainerCount()}</h4>
+                    <h4>Кол-во клиентов - #{extraInfoBean.getClientCount()}</h4>
                 </c:if>
             </div>
         </div>
