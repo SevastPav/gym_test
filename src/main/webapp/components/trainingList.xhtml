@@ -8,11 +8,11 @@
         <h:form>
             <div class="card ml-2" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">#{training.title}</h5>
+                    <h5 class="card-title">#{training.trainingDescription.title}</h5>
                     <p class="card-text">Дата: #{training.date}</p>
                     <p class="card-text">Время: #{training.time}</p>
                     <p class="card-text">Количество участников: #{training.clients.size()}</p>
-                    <p class="card-text">Описание: #{training.description}</p>
+                    <p class="card-text">Описание: #{training.trainingDescription.description}</p>
                         <c:if test="#{authService.hasRole('USER')}">
                             <p:commandButton value="Отменить"
                                              ajax="false"

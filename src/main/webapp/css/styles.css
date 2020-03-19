@@ -2,9 +2,15 @@
     height: 70px;
     max-width: 1200px;
     width: 100%;
-    background: #f9f9f9;
+    background: #f9d8b6;
     border: 2px;
     border-radius: 0 0 20px 20px;
+}
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #92908b;
+    border-color: #32383e;
 }
 
 .link_menu {

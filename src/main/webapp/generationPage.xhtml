@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
+        <div style="margin: 40px auto; text-align: -webkit-center;">
+            <h:form>
+                <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
+                    <p:commandButton value="Сгенерировать тренировки на текущую неделю" ajax="false"
+                                     action="#{generatorBean.generateTrainingsOnCurrentWeek()}" update="@form"/>
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
+                    <h2>Страница генерации данных</h2>
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+                    <p:inputText id="loginPrefix" placeholder="Префикс логина" value="#{generatorBean.userLoginPrefix}"/>
+                    <p:inputText id="count" placeholder="Количество пользователей" value="#{generatorBean.countOfUsers}"/>
+
+                    <p:commandButton value="Сгенерировать клиентов" ajax="false"
+                                     action="#{generatorBean.generateClients()}" update="@form"/>
+                    <p:commandButton value="Сгенерировать тренеров" ajax="false"
+                                     action="#{generatorBean.generateTrainers()}" update="@form"/>
+                </p:panelGrid>
+
+                <p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
+                    <p:inputText id="countOfTrainings" placeholder="Количество тренировок" value="#{generatorBean.countOfTrainings}"/>
+
+                    <p:commandButton value="Сгенерировать тренировки" ajax="false"
+                                     action="#{generatorBean.generateTrainings()}" update="@form"/>
+                </p:panelGrid>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

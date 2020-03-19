@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.annotation.SessionScope;
 import org.xtremebiker.jsfspring.entity.Training;
+import org.xtremebiker.jsfspring.entity.TrainingDescription;
 import org.xtremebiker.jsfspring.entity.UserProfile;
+import org.xtremebiker.jsfspring.repository.TrainingDescRepository;
 import org.xtremebiker.jsfspring.repository.TrainingRepository;
 import org.xtremebiker.jsfspring.repository.UserProfileRepository;
 
@@ -20,8 +22,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @SessionScope
@@ -29,6 +31,8 @@ import java.util.Optional;
 public class TrainingBean {
 
 	private Training trainingDto;
+
+	private Long trainingDescId;
 
 	public Date date;
 
@@ -38,19 +42,29 @@ public class TrainingBean {
 
 	private final UserProfileRepository userProfileRepository;
 
-	public TrainingBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository) {
+	private final TrainingDescRepository trainingDescRepository;
+
+	public TrainingBean(TrainingRepository trainingRepository, UserProfileRepository userProfileRepository,
+						TrainingDescRepository trainingDescRepository) {
 		this.userProfileRepository = userProfileRepository;
 		this.trainingRepository = trainingRepository;
+		this.trainingDescRepository = trainingDescRepository;
 	}
 
 	@PostConstruct
 	public void init() {
+		trainingDescId = Long.valueOf(0);
 		trainingDto = new Training();
 		date = new Date();
 	}
 
 	private void error(String details) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ошибка!", details));
+	}
+
+	public Map<String, Long> getTrainingsDesc() {
+		List<TrainingDescription> trainingsDesc = trainingDescRepository.findAll();
+		return trainingsDesc.stream().collect(Collectors.toMap(TrainingDescription::getTitle, TrainingDescription::getTrainingDescId));
 	}
 
 	private boolean checkTrainingForm(){
@@ -62,6 +76,10 @@ public class TrainingBean {
 			error("Некорректное время");
 			return false;
 		}
+		if (trainingDescId == 0){
+			error("Некорректное описание тренировки");
+			return false;
+		}
 		return true;
 	}
 
@@ -71,10 +89,13 @@ public class TrainingBean {
 		Authentication authentication =
 				SecurityContextHolder.getContext().getAuthentication();
 		Optional<UserProfile> trainer = userProfileRepository.findByLogin(authentication.getName());
-		if (trainer.isPresent()){
+		Optional<TrainingDescription> trainingDesc = trainingDescRepository.findByTrainingDescId(trainingDescId);
+
+		if (trainer.isPresent() && trainingDesc.isPresent()){
 			trainingDto.setDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			trainingDto.setTime(time.toInstant().atZone(ZoneId.systemDefault()).toLocalTime());
 			trainingDto.setTrainerId(trainer.get());
+			trainingDto.setTrainingDescription(trainingDesc.get());
 			trainingRepository.save(trainingDto);
 			PrimeFaces current = PrimeFaces.current();
 			current.executeScript("PF('trainingAddDlg').hide();");
@@ -109,6 +130,7 @@ public class TrainingBean {
 	}
 
 	public void closeAction() {
+		trainingDescId = Long.valueOf(0);
 		trainingDto = new Training();
 		date = new Date();
 	}

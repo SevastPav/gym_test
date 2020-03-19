@@ -19,7 +19,7 @@
 
                     <p:commandButton value="Зарегистрироваться" ajax="false"
                                      action="#{registrationBean.saveClient()}" update="@form"/>
-                    <c:if test="#{authService.hasRole('ADMIN')}">
+                    <c:if test="#{authService.hasRole('ADMIN') || not authService.isAuth()}">
                         <p:commandButton value="Зарегистрировать Администратора" ajax="false"
                                          action="#{registrationBean.saveAdmin()}" update="@form"/>
                         <p:commandButton value="Зарегистрировать Тренера" ajax="false"

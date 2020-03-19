@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<p:dialog styleClass="modal-window"
+          header="Добавить тренировку"
+          widgetVar="trainingDescAddDlg" modal="true" id="trainingDescAddDlg">
+    <h:form>
+        <div class="container">
+            <p:messages id="messages" showDetail="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+            <div class="row pt-3">
+                <div class="col-3">
+                    <h:outputLabel for="title" value="Название"/>
+                </div>
+                <div class="col">
+                    <p:inputText id="title" value="#{trainingDescBean.trainingDescDto.title}"/>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-3">
+                    <h:outputLabel for="description" value="Описание"/>
+                </div>
+                <div class="col">
+                    <p:inputText id="description" value="#{trainingDescBean.trainingDescDto.description}"/>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-4">
+                    <p:commandButton value="СОХРАНИТЬ" actionListener="#{trainingDescBean.save}"
+                                     update="@form" ajax="false"/>
+                </div>
+                <div class="col text-right">
+                    <p:commandButton value="НЕ СОХРАНЯТЬ" actionListener="#{trainingDescBean.closeAction}"
+                                     oncomplete="PF('trainingDescAddDlg').hide()" ajax="false"/>
+                </div>
+            </div>
+        </div>
+    </h:form>
+    <p:ajax event="close" update="trainingDescAddDlg"/>
+</p:dialog>
+</html>

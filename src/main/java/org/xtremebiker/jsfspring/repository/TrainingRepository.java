@@ -18,7 +18,6 @@ import java.util.Optional;
  */
 //@SuppressWarnings("unused")
 @Repository
-@Transactional
 public interface TrainingRepository extends JpaRepository<Training, Long>, JpaSpecificationExecutor<Training> {
 
     List<Training> findAll();

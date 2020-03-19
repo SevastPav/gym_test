@@ -43,6 +43,11 @@ public class MainController {
         return "/welcomePage.xhtml";
     }*/
 
+    @GetMapping("/generation")
+    public String generation() {
+        return "/generationPage.xhtml";
+    }
+
     @GetMapping("/registration")
     public String registtration() {
         return "/registrationPage.xhtml";
@@ -59,6 +64,11 @@ public class MainController {
     @GetMapping("/home")
     public String home() {
         return "/welcomePage.xhtml";
+    }
+
+    @GetMapping("/training_desc")
+    public String trainingDesc() {
+        return "/trainingDescPage.xhtml";
     }
 
     @GetMapping("/statistic")

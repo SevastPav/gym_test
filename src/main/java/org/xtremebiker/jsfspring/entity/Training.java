@@ -40,11 +40,15 @@ public class Training implements Serializable {
     @Column(name = "time")
     private LocalTime time;
 
-    @Column(name = "title", length = 255)
-    private String title;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="training_desc_id")
+    private TrainingDescription trainingDescription;
 
-    @Column(name = "description", length = 255)
-    private String description;
+/*    @Column(name = "title", length = 255)
+    private String title;*/
+
+/*    @Column(name = "description", length = 255)
+    private String description;*/
 
     @Column(name = "active", nullable = false)
     private Boolean active = Boolean.TRUE;

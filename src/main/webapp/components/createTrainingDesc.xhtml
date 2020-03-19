@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <ui:include src="../components/add/trainingDescAdd.xhtml"/>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Добавление описания тренировки</h4>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-3">
+                <h:form>
+                    <p:menubar styleClass="table-menu__main">
+                        <p:menuitem value="ДОБАВИТЬ ОПИСАНИЕ"
+                                    oncomplete="PF('trainingDescAddDlg').show();"
+                                    action="#{trainingBean.closeAction}"
+                                    update=":#{p:component('trainingDescAddDlg')}"/>
+                    </p:menubar>
+                </h:form>
+            </div>
+        </div>
+    </div>
+</ui:composition>
+</html>

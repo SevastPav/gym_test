@@ -63,7 +63,7 @@ public class TimeTableBean {
 	public String getTrainingTitleByDateTime(LocalDate date, LocalTime time){
 		Training training = table.get(date, time);
 		if(training != null)
-			return training.getTitle();
+			return training.getTrainingDescription().getTitle();
 		return "";
 	}
 
